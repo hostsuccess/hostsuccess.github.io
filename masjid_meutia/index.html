@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BKM Masjid Meutia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Style transisi fade yang halus untuk gambar */
+        .carousel-slide {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            inset: 0;
+        }
+        .carousel-slide.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        /* Animasi munculnya teks di atas gambar */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .carousel-slide.active .slide-content {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Efek dot memanjang saat aktif */
+        .carousel-dot {
+            transition: all 0.3s ease;
+        }
+        .carousel-dot.active {
+            background-color: #10b981; /* emerald-500 */
+            width: 24px;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 scroll-smooth">
+
+  <nav class="bg-emerald-950/95 backdrop-blur-md sticky top-0 z-50 shadow-md border-b border-emerald-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20">
+            
+            <div class="flex items-center">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-900/50">
+                        <i class="fa-solid fa-mosque text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-lg font-bold text-white block leading-tight">BKM MEUTIA</span>
+                        <span class="text-xs text-amber-400 font-medium tracking-wider uppercase">Masjid Meutia</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hidden xl:flex items-center space-x-6 font-medium text-sm text-emerald-100/90">
+                <a href="#home" data-nav="home" class="nav-link transition-colors">Beranda</a>
+                
+                <div class="relative inline-block text-left">
+                    <button id="dropdown-btn" data-nav="tentang-kami" class="nav-link flex items-center gap-1 focus:outline-none py-2 transition-colors">
+                        Tentang Kami <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" id="dropdown-arrow"></i>
+                    </button>
+                    <div id="dropdown-menu" class="hidden absolute left-0 mt-2 w-52 rounded-xl bg-emerald-900 shadow-xl ring-1 ring-black/20 focus:outline-none overflow-hidden border border-emerald-800/60 z-50">
+                        <div class="py-1">
+                            <a href="#visimisi" data-sub="tentang-kami" class="sub-link block px-4 py-2.5 text-sm text-emerald-100 hover:bg-emerald-800/60 transition-colors">Visi & Misi</a>
+                            <a href="#tentang" data-sub="tentang-kami" class="sub-link block px-4 py-2.5 text-sm text-emerald-100 hover:bg-emerald-800/60 transition-colors">Sejarah Singkat</a>
+                            <a href="#struktur" data-sub="tentang-kami" class="sub-link block px-4 py-2.5 text-sm text-emerald-100 hover:bg-emerald-800/60 transition-colors">Struktur Pimpinan</a>
+                            <a href="#petugas" data-sub="tentang-kami" class="sub-link block px-4 py-2.5 text-sm text-emerald-100 hover:bg-emerald-800/60 transition-colors">Imam & Muadzin</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#program" data-nav="program" class="nav-link transition-colors">Program</a>
+                <a href="#fasilitas" data-nav="fasilitas" class="nav-link transition-colors">Fasilitas</a>
+                
+                <a href="#donasi" class="nav-link transition-colors">Infak</a>
+                
+                <a href="#jadwal" class="bg-emerald-600 text-white px-4 py-2 rounded-xl hover:bg-emerald-500 transition-all shadow-md shadow-emerald-950">Jadwal Sholat</a>
+            </div>
+
+            <div class="flex items-center xl:hidden">
+                <button id="menu-btn" class="text-emerald-100 hover:text-amber-400 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden xl:hidden bg-emerald-950 border-b border-emerald-900/60 px-4 pt-2 pb-4 space-y-2 shadow-xl">
+        <a href="#home" data-mobile="home" class="mobile-link block px-3 py-2 rounded-lg font-medium">Beranda</a>
+        
+        <div class="border-t border-emerald-900/40 my-1"></div>
+        <span class="block px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-500/70">Tentang Kami</span>
+        <a href="#visimisi" data-mobile="visimisi" class="mobile-link block px-6 py-2 rounded-lg font-medium">Visi & Misi</a>
+        <a href="#tentang" data-mobile="tentang" class="mobile-link block px-6 py-2 rounded-lg font-medium">Sejarah Singkat</a>
+        <a href="#struktur" data-mobile="struktur" class="mobile-link block px-6 py-2 rounded-lg font-medium">Struktur Pimpinan</a>
+        <a href="#petugas" data-mobile="petugas" class="mobile-link block px-6 py-2 rounded-lg font-medium">Imam & Muadzin</a>
+        
+        <div class="border-t border-emerald-900/40 my-1"></div>
+        <a href="#program" data-mobile="program" class="mobile-link block px-3 py-2 rounded-lg font-medium">Program</a>
+        <a href="#fasilitas" data-mobile="fasilitas" class="mobile-link block px-3 py-2 rounded-lg font-medium">Fasilitas</a>
+        <a href="#donasi" class="mobile-link block px-3 py-2 rounded-lg font-medium">Infak & Sedekah</a>
+        
+        <a href="#jadwal" class="block text-center bg-emerald-600 text-white px-4 py-2.5 rounded-lg font-medium shadow-md">Jadwal Sholat</a>
+    </div>
+</nav>
+
+    <section id="home" class="relative w-full h-[65vh] md:h-[80vh] bg-slate-950 overflow-hidden">
+        <div id="carousel-container" class="w-full h-full">
+            <div class="carousel-slide active w-full h-full">
+                <div class="absolute inset-0 bg-slate-950/40 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover" alt="Foto Masjid">
+                <div class="absolute inset-0 z-20 flex items-center justify-center p-4">
+                    <div class="slide-content opacity-0 max-w-2xl text-center bg-slate-900/60 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-2xl md:rounded-3xl shadow-2xl">
+                        <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 block mb-2"><i class="fa-solid fa-mosque mr-1"></i> Baitullah</span>
+                        <h2 class="text-2xl md:text-4xl font-extrabold text-white mb-3 md:mb-4">Makmurkan Masjid, <br class="hidden md:inline">Tenangkan Hati</h2>
+                        <p class="text-slate-200 text-xs md:text-sm leading-relaxed mb-6">"Hanya yang memakmurkan masjid-masjid Allah ialah orang-orang yang beriman kepada Allah dan Hari kemudian." (QS. At-Taubah: 18)</p>
+                        <a href="#jadwal" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs md:text-sm font-semibold px-5 py-2.5 rounded-xl transition-all">Lihat Jadwal Sholat <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide w-full h-full">
+                <div class="absolute inset-0 bg-slate-950/40 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover" alt="Kegiatan Mengaji">
+                <div class="absolute inset-0 z-20 flex items-center justify-center p-4">
+                    <div class="slide-content opacity-0 max-w-2xl text-center bg-slate-900/60 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-2xl md:rounded-3xl shadow-2xl">
+                        <span class="text-xs font-bold uppercase tracking-widest text-blue-400 block mb-2"><i class="fa-solid fa-book-open mr-1"></i> Tarbiyah</span>
+                        <h2 class="text-2xl md:text-4xl font-extrabold text-white mb-3 md:mb-4">Membentuk Generasi <br class="hidden md:inline">Cinta Al-Qur'an</h2>
+                        <p class="text-slate-200 text-xs md:text-sm leading-relaxed mb-6">Melalui program TPA, Madrasah, dan Tahfidz Qur'an rutin, kami berkomitmen mempersiapkan generasi masa depan yang berakhlak mulia.</p>
+                        <a href="#program" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-semibold px-5 py-2.5 rounded-xl transition-all">Program Pendidikan <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide w-full h-full">
+                <div class="absolute inset-0 bg-slate-950/40 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1561414927-6d86591d0c4f?auto=format&fit=crop&q=80&w=1200&h=500" class="w-full h-full object-cover" alt="Bantuan Sosial">
+                <div class="absolute inset-0 z-20 flex items-center justify-center p-4">
+                    <div class="slide-content opacity-0 max-w-2xl text-center bg-slate-900/60 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-2xl md:rounded-3xl shadow-2xl">
+                        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 block mb-2"><i class="fa-solid fa-hand-holding-heart mr-1"></i> Infaq & Shadaqah</span>
+                        <h2 class="text-2xl md:text-4xl font-extrabold text-white mb-3 md:mb-4">Berbagi Berkah <br class="hidden md:inline">Untuk Sesama</h2>
+                        <p class="text-slate-200 text-xs md:text-sm leading-relaxed mb-6">Setiap rupiah yang Anda infakkan mengalir menjadi amal jariyah untuk operasional ibadah, marbot masjid, serta santunan dhuafa.</p>
+                        <a href="#donasi" class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white text-xs md:text-sm font-semibold px-5 py-2.5 rounded-xl transition-all">Infaq Sekarang <i class="fa-solid fa-heart"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black/40 hover:bg-emerald-600 text-white backdrop-blur-sm transition-all shadow-md">
+            <i class="fa-solid fa-chevron-left text-sm md:text-base"></i>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black/40 hover:bg-emerald-600 text-white backdrop-blur-sm transition-all shadow-md">
+            <i class="fa-solid fa-chevron-right text-sm md:text-base"></i>
+        </button>
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+            <button onclick="setSlide(0)" class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/40 active"></button>
+            <button onclick="setSlide(1)" class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/40"></button>
+            <button onclick="setSlide(2)" class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/40"></button>
+        </div>
+    </section>
+
+  <section id="jadwal" class="scroll-mt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10 lg:-mt-24 relative z-30">
+    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 sm:p-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+            <div>
+                <h3 class="text-xl font-bold text-slate-900">Jadwal Sholat Hari Ini</h3>
+                <p class="text-sm text-slate-500"><i class="fa-regular fa-calendar-days mr-1"></i> Rabu, 10 Juni 2026</p>
+            </div>
+            <span class="self-start md:self-center bg-amber-50 text-amber-700 text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-200">
+                <i class="fa-regular fa-clock mr-1"></i> Menuju Ashar: -01:20:00
+            </span>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 text-center">
+                <span class="text-xs font-semibold text-slate-400 block mb-1">Subuh</span>
+                <span class="text-xl font-bold text-slate-800">04:45</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 text-center">
+                <span class="text-xs font-semibold text-slate-400 block mb-1">Dzuhur</span>
+                <span class="text-xl font-bold text-slate-800">12:15</span>
+            </div>
+            <div class="bg-emerald-600 border border-emerald-600 rounded-xl p-4 text-center shadow-lg text-white">
+                <span class="text-xs font-semibold text-emerald-200 block mb-1">Ashar</span>
+                <span class="text-xl font-bold">15:30</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 text-center">
+                <span class="text-xs font-semibold text-slate-400 block mb-1">Maghrib</span>
+                <span class="text-xl font-bold text-slate-800">18:25</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 text-center">
+                <span class="text-xs font-semibold text-slate-400 block mb-1">Isya</span>
+                <span class="text-xl font-bold text-slate-800">19:40</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 text-center">
+                <span class="text-xs font-semibold text-slate-400 block mb-1">Syuruk</span>
+                <span class="text-xl font-bold text-slate-800">06:05</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="tentang" class="py-20 bg-slate-100 border-b border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-2">Asal Usul</span>
+                <h2 class="text-3xl font-bold text-slate-900">Sejarah Masjid Agung Al-Ikhlas</h2>
+                <p class="text-slate-500 text-xs sm:text-sm mt-2">Menelusuri jejak awal berdirinya pusat peradaban dan syiar Islam di lingkungan kita.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                <div class="lg:col-span-1 bg-white border border-slate-200 p-8 rounded-2xl flex flex-col justify-center shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-6 shadow-md shadow-emerald-100">
+                        <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Tahun Terbit</h3>
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed italic">
+                        "Didirikan pada tahun 1998 di atas tanah wakaf masyarakat setempat, bertransformasi dari mushola kayu kecil menjadi episentrum kegiatan umat."
+                    </p>
+                </div>
+
+                <div class="lg:col-span-2 bg-white border border-slate-200 p-8 rounded-2xl shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-6 shadow-md shadow-emerald-100">
+                        <i class="fa-solid fa-timeline text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Milestone Perkembangan</h3>
+                    <ul class="space-y-4 text-xs sm:text-sm text-slate-600 font-medium">
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-emerald-50 text-emerald-600 rounded-md flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">1</span>
+                            <span><strong class="text-slate-900">Awal Berdiri (1998):</strong> Diinisiasi oleh tokoh masyarakat setempat sebagai bangunan tempat sholat kayu sederhana berukuran 6x6 meter.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-emerald-50 text-emerald-600 rounded-md flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">2</span>
+                            <span><strong class="text-slate-900">Pembangunan Permanen (2007):</strong> Melalui perluasan tanah wakaf dan gotong royong pendanaan, struktur utama masjid dirombak total menjadi beton permanen.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-emerald-50 text-emerald-600 rounded-md flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">3</span>
+                            <span><strong class="text-slate-900">Era Digital & Sosial (Kini):</strong> Tidak hanya sebagai tempat ibadah ritual, masjid resmi menjadi pusat pengelolaan ZIS, pendidikan TPA modern, dan pemberdayaan ekonomi jamaah.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="visimisi" class="py-20 bg-slate-50 border-t border-b border-slate-200/60 text-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-2">Arah & Tujuan</span>
+                <h2 class="text-3xl font-bold text-slate-900">Visi & Misi BKM Masjid</h2>
+                <p class="text-slate-500 text-xs sm:text-sm mt-2">Komitmen kami dalam mengelola amanah, membina umat, dan memakmurkan rumah Allah.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                
+                <div class="lg:col-span-1 bg-white border border-slate-200 p-8 rounded-2xl flex flex-col justify-center shadow-sm relative overflow-hidden">
+                    <div class="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center text-white mb-6 shadow-lg shadow-emerald-200">
+                        <i class="fa-solid fa-eye text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Visi Utama</h3>
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed italic">
+                        "Menjadikan Masjid Al-Ikhlas sebagai pusat syiar Islam yang mandiri, melahirkan generasi qur'ani, serta menjadi pelopor kesejahteraan umat."
+                    </p>
+                </div>
+                
+                <div class="lg:col-span-2 bg-white border border-slate-200 p-8 rounded-2xl shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center text-white mb-6 shadow-lg shadow-emerald-200">
+                        <i class="fa-solid fa-bullseye text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Misi Strategis</h3>
+                    <ul class="space-y-4 text-xs sm:text-sm text-slate-600 font-medium">
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-md flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">1</span>
+                            <span class="leading-relaxed">Menyelenggarakan ibadah fardhu dan kegiatan dakwah Islam secara konsisten sesuai Al-Qur'an dan As-Sunnah.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-md flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">2</span>
+                            <span class="leading-relaxed">Mengembangkan pendidikan Islam formal maupun non-formal bagi anak-anak, remaja, hingga lansia.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-md flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">3</span>
+                            <span class="leading-relaxed">Mengelola dana sosial umat (Zakat, Infak, Sedekah) secara transparan, akuntabel, dan tepat sasaran.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-md flex items-center justify-center text-xs flex-shrink-0 mt-0.5 font-bold">4</span>
+                            <span class="leading-relaxed">Merawat serta meningkatkan sarana dan prasarana masjid demi kenyamanan maksimal para jamaah.</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="struktur" class="py-20 bg-slate-100 border-b border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+               <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-2">Struktur </span>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Struktur Pengurus BKM</h2>
+                <p class="text-slate-500 text-sm">Susunan Badan Kemakmuran Masjid (BKM) Agung Al-Ikhlas Periode Kepegawaian Aktif.</p>
+            </div>
+            <div class="space-y-12">
+                <div class="flex justify-center">
+                    <div class="bg-white rounded-2xl p-5 border border-amber-200 text-center shadow-sm w-full max-w-sm ring-4 ring-amber-50 relative overflow-hidden">
+                        <div class="absolute -top-6 -right-6 w-12 h-12 bg-amber-100 rounded-full opacity-50"></div>
+                        
+                        <div class="w-16 h-16 bg-slate-100 rounded-full mx-auto mb-3 overflow-hidden border-2 border-amber-400 shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1547037579-f0fc020ac3be?auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Foto Penasihat">
+                        </div>
+                        
+                        <span class="text-[10px] font-bold text-amber-600 uppercase tracking-wider block">Penasihat / Pelindung</span>
+                        <h4 class="font-bold text-slate-900 text-sm mt-1">Prof. Dr. H. Syamsuddin, M.A.</h4>
+                        <p class="text-[11px] text-slate-500 mt-1 max-w-xs mx-auto">Mantan Rektor UIN & Tokoh Masyarakat</p>
+                    </div>
+                </div>
+                <div class="flex justify-center -my-8 text-slate-300"><i class="fa-solid fa-arrow-down-long text-xl"></i></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto justify-center">
+                    <div class="bg-white rounded-2xl p-5 text-center shadow-sm border border-emerald-200 ring-4 ring-emerald-50">
+                        <div class="w-16 h-16 bg-slate-100 rounded-full mx-auto mb-3 overflow-hidden border-2 border-emerald-500">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">H. Ahmad Syarifuddin, M.A.</h4>
+                        <p class="text-xs font-semibold text-emerald-600 mt-0.5">Ketua Umum BKM</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 text-center shadow-sm border border-emerald-100">
+                        <div class="w-16 h-16 bg-slate-100 rounded-full mx-auto mb-3 overflow-hidden border-2 border-emerald-400">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">Ustadz Rahmat Hidayat</h4>
+                        <p class="text-xs font-semibold text-emerald-600 mt-0.5">Wakil Ketua BKM</p>
+                    </div>
+                </div>
+                <div class="flex justify-center -my-8 text-slate-300"><i class="fa-solid fa-arrow-down-long text-xl"></i></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto justify-center">
+                    <div class="bg-white rounded-2xl p-5 text-center shadow-sm border border-slate-200">
+                        <div class="w-14 h-14 bg-slate-100 rounded-full mx-auto mb-3 overflow-hidden border">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">Muhammad Rizky, S.T.</h4>
+                        <p class="text-xs font-medium text-slate-500 mt-0.5">Sekretaris Jenderal</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 text-center shadow-sm border border-slate-200">
+                        <div class="w-14 h-14 bg-slate-100 rounded-full mx-auto mb-3 overflow-hidden border">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">H. Supriadi, S.E.</h4>
+                        <p class="text-xs font-medium text-slate-500 mt-0.5">Bendahara Umum</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <section id="petugas" class="py-20 bg-slate-50 border-t border-b border-slate-200/60 text-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-2">Penjaga Mihrab</span>
+                <h2 class="text-3xl font-bold text-slate-900">Profil Imam & Muadzin</h2>
+                <p class="text-slate-500 text-sm sm:text-base mt-2">Mengenal lebih dekat para guru dan asatidz pelayan ibadah sholat 5 waktu di Masjid Al-Ikhlas.</p>
+            </div>
+            
+            <div class="mb-14">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-emerald-500 rounded-full"></span> Jajaran Imam Rawatib
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden text-center p-6 group hover:border-emerald-300 transition-all duration-300">
+                        <div class="w-24 h-24 rounded-full bg-slate-100 mx-auto mb-4 overflow-hidden ring-4 ring-emerald-50 group-hover:ring-emerald-100 transition-all">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">Syekh Abdullah Al-Mansur</h4>
+                        <p class="text-xs font-semibold text-emerald-600 mt-1">Imam Besar Utama</p>
+                        <p class="text-[11px] text-slate-400 mt-2 italic">Tugas: Maghrib & Isya</p>
+                    </div>
+                    
+                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden text-center p-6 group hover:border-emerald-300 transition-all duration-300">
+                        <div class="w-24 h-24 rounded-full bg-slate-100 mx-auto mb-4 overflow-hidden ring-4 ring-emerald-50 group-hover:ring-emerald-100 transition-all">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">Ust. H. Fauzi Rahman</h4>
+                        <p class="text-xs font-semibold text-emerald-600 mt-1">Imam Rawatib</p>
+                        <p class="text-[11px] text-slate-400 mt-2 italic">Tugas: Subuh</p>
+                    </div>
+                    
+                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden text-center p-6 group hover:border-emerald-300 transition-all duration-300">
+                        <div class="w-24 h-24 rounded-full bg-slate-100 mx-auto mb-4 overflow-hidden ring-4 ring-emerald-50 group-hover:ring-emerald-100 transition-all">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">Ust. Muhammad Zain</h4>
+                        <p class="text-xs font-semibold text-emerald-600 mt-1">Imam Rawatib</p>
+                        <p class="text-[11px] text-slate-400 mt-2 italic">Tugas: Dzuhur</p>
+                    </div>
+                    
+                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden text-center p-6 group hover:border-emerald-300 transition-all duration-300">
+                        <div class="w-24 h-24 rounded-full bg-slate-100 mx-auto mb-4 overflow-hidden ring-4 ring-emerald-50 group-hover:ring-emerald-100 transition-all">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">Ust. Ahmad Syarifuddin</h4>
+                        <p class="text-xs font-semibold text-emerald-600 mt-1">Imam Rawatib</p>
+                        <p class="text-[11px] text-slate-400 mt-2 italic">Tugas: Ashar</p>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-amber-500 rounded-full"></span> Jajaran Muadzin (Bilal)
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
+                    
+                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden text-center p-6 group hover:border-amber-300 transition-all duration-300">
+                        <div class="w-20 h-20 rounded-full bg-slate-100 mx-auto mb-4 overflow-hidden ring-4 ring-amber-50 group-hover:ring-amber-100 transition-all">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">Bilal Saefullah</h4>
+                        <p class="text-xs font-semibold text-amber-600 mt-1">Muadzin Utama</p>
+                        <p class="text-[11px] text-slate-400 mt-2 italic">Tugas: Subuh & Ashar</p>
+                    </div>
+                    
+                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden text-center p-6 group hover:border-amber-300 transition-all duration-300">
+                        <div class="w-20 h-20 rounded-full bg-slate-100 mx-auto mb-4 overflow-hidden ring-4 ring-amber-50 group-hover:ring-amber-100 transition-all">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">Akhi Roni Wijaya</h4>
+                        <p class="text-xs font-semibold text-amber-600 mt-1">Muadzin Rawatib</p>
+                        <p class="text-[11px] text-slate-400 mt-2 italic">Tugas: Dzuhur</p>
+                    </div>
+                    
+                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden text-center p-6 group hover:border-amber-300 transition-all duration-300">
+                        <div class="w-20 h-20 rounded-full bg-slate-100 mx-auto mb-4 overflow-hidden ring-4 ring-amber-50 group-hover:ring-amber-100 transition-all">
+                            <img src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">Ust. Junaedi Kai</h4>
+                        <p class="text-xs font-semibold text-amber-600 mt-1">Muadzin Rawatib</p>
+                        <p class="text-[11px] text-slate-400 mt-2 italic">Tugas: Maghrib & Isya</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="program" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-100">
+         <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-2">Program</span>
+                <h2 class="text-3xl font-bold text-slate-900">Program & Kegiatam </h2>
+                <p class="text-slate-500 text-sm sm:text-base mt-2">Mengenal lebih dekat program dan kegiatan di Masjid Meutia.</p>
+            </div>
+       
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-slate-50 rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
+                <div class="h-44 bg-slate-200"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80" class="w-full h-full object-cover"></div>
+                <div class="p-6">
+                    <h3 class="text-base font-bold text-slate-900 mb-1">Kajian Rutin Pekan Islam</h3>
+                    <p class="text-xs text-slate-500">Pembahasan Fikih & Akidah berkala bersama narasumber berkompeten.</p>
+                </div>
+            </div>
+            <div class="bg-slate-50 rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
+                <div class="h-44 bg-slate-200"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80" class="w-full h-full object-cover"></div>
+                <div class="p-6">
+                    <h3 class="text-base font-bold text-slate-900 mb-1">TPA & Tahfidz Al-Qur'an Anak</h3>
+                    <p class="text-xs text-slate-500">Bimbingan hafalan dan tajwid Al-Qur'an generasi belia.</p>
+                </div>
+            </div>
+            <div class="bg-slate-50 rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
+                <div class="h-44 bg-slate-200"><img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80" class="w-full h-full object-cover"></div>
+                <div class="p-6">
+                    <h3 class="text-base font-bold text-slate-900 mb-1">Masjid Peduli Sosial</h3>
+                    <p class="text-xs text-slate-500">Program penyaluran sembako bulanan untuk warga dhuafa sekitar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="fasilitas" class="py-20 bg-white border-t border-slate-200/60 text-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-2">Kenyamanan & Khidmat</span>
+                <h2 class="text-3xl font-bold text-slate-900">Fasilitas & Layanan Masjid</h2>
+                <p class="text-slate-500 text-sm sm:text-base mt-2">Menyediakan sarana ibadah yang nyaman serta pelayanan sosial kemasyarakatan yang prima di Masjid Agung Al-Ikhlas.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div id="pelayanan" class="bg-slate-50 border border-slate-200/80 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                        <i class="fa-solid fa-book-open-reader text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Madrasah TV & Tahfidz</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Pendidikan Al-Qur'an dan karakter Islami untuk anak-anak lingkungan masjid setiap sore hari.</p>
+                </div>
+                
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                        <i class="fa-solid fa-truck-medical text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Ambulans & Sosial Gratis</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Layanan mobil ambulans 24 jam siap melayani jamaah dan warga yang membutuhkan bantuan darurat.</p>
+                </div>
+                
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-8 shadow-sm hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                        <i class="fa-solid fa-square-poll-horizontal text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Fasilitas Lengkap</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Ruang utama Full AC, Wifi Gratis untuk belajar, perpustakaan mini Islam, dan area parkir luas.</p>
+                </div>
+
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="donasi" class="py-16 text-center max-w-7xl mx-auto px-4">
+        <h2 class="text-2xl font-bold text-slate-900 mb-8">Salurkan Infaq Terbaik Anda</h2>
+        <div class="flex flex-col sm:flex-row justify-center gap-6">
+            <div class="bg-white p-6 rounded-2xl border shadow-sm max-w-xs w-full mx-auto sm:mx-0">
+                <i class="fa-solid fa-building-columns text-2xl text-emerald-600 mb-2"></i>
+                <h4 class="font-bold text-xs text-slate-800">Bank Syariah Indonesia (BSI)</h4>
+                <p class="text-lg font-mono font-bold text-emerald-600 mt-1">711-222-3334</p>
+                <p class="text-[10px] text-slate-400 mt-1">a.n BKM Masjid Al-Ikhlas</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border shadow-sm max-w-xs w-full mx-auto sm:mx-0">
+                <i class="fa-solid fa-qrcode text-2xl text-slate-700 mb-2"></i>
+                <h4 class="font-bold text-xs text-slate-800">Scan QRIS Masjid</h4>
+                <div class="w-20 h-20 bg-slate-100 mx-auto mt-2 rounded flex items-center justify-center text-[10px] text-slate-400 font-bold border-2 border-dashed">QRIS CODE</div>
+            </div>
+        </div>
+    </section>
+
+   <footer class="bg-emerald-950 text-slate-300 pt-16 pb-8 rounded-t-[40px] md:rounded-t-[60px] relative z-40 border-t border-emerald-900/40">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-12 pb-12 border-b border-white/10">
+                
+                <div class="lg:col-span-5">
+                    <h3 class="text-2xl font-bold text-[#fbbf24] tracking-wide mb-4">Masjid Meutia</h3>
+                    <p class="text-sm text-slate-200/80 leading-relaxed max-w-md">
+                        Selamat datang di Masjid Meutia, pusat ibadah, pendidikan, dan syiar Islam di lingkungan kita. Merajut ukhuwah, menebar kedamaian, serta membangun peradaban umat yang madani dan bertakwa.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-4 space-y-4">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-[#fbbf24] mb-5">Kontak & Lokasi</h4>
+                    
+                    <div class="flex items-start gap-3 text-sm">
+                        <i class="fa-solid fa-location-dot text-[#fbbf24] mt-1 flex-shrink-0"></i>
+                        <p class="text-slate-200/80 leading-relaxed">
+                            Jl. Pantai Rambung No. 12, Marindal - I  Pasar III, Kecamatan Patumbak, Deli Serdang - Sumatera Utara, 20355
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 text-sm">
+                        <i class="fa-solid fa-phone text-[#fbbf24] flex-shrink-0"></i>
+                        <p class="text-slate-200/80">+061- 3811798</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 text-sm">
+                        <i class="fa-solid fa-envelope text-[#fbbf24] flex-shrink-0"></i>
+                        <p class="text-slate-200/80">info@bkm_meutia.or.id</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-[#fbbf24] mb-5">Ikuti Sosial Media</h4>
+                    
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-10 h-10 border border-white/20 rounded-xl flex items-center justify-center text-white hover:bg-[#fbbf24] hover:text-emerald-950 hover:border-[#fbbf24] transition-all duration-300">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 border border-white/20 rounded-xl flex items-center justify-center text-white hover:bg-[#fbbf24] hover:text-emerald-950 hover:border-[#fbbf24] transition-all duration-300">
+                            <i class="fa-brands fa-youtube text-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 border border-white/20 rounded-xl flex items-center justify-center text-white hover:bg-[#fbbf24] hover:text-emerald-950 hover:border-[#fbbf24] transition-all duration-300">
+                            <i class="fa-brands fa-facebook-f text-base"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 text-center text-xs text-slate-400">
+                <p>&copy; 2026 BKM Masjid Meutia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // MOBILE MENU SYSTEM
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // DROPDOWN SYSTEM (TENTANG KAMI)
+        const dropdownBtn = document.getElementById('dropdown-btn');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const dropdownArrow = document.getElementById('dropdown-arrow');
+
+        dropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('hidden');
+            dropdownArrow.classList.toggle('rotate-180');
+        });
+
+        // Tutup dropdown jika klik di luar area menu
+        document.addEventListener('click', () => {
+            if (!dropdownMenu.classList.contains('hidden')) {
+                dropdownMenu.classList.add('hidden');
+                dropdownArrow.classList.remove('rotate-180');
+            }
+        });
+
+        // SLIDESHOW CAROUSEL
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const totalSlides = slides.length;
+        const intervalTime = 6000; 
+        let slideInterval;
+
+        function updateCarousel(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.add('active');
+                    dots[i].classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                    dots[i].classList.remove('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel(currentSlide);
+            resetInterval();
+        }
+
+        function setSlide(index) {
+            currentSlide = index;
+            updateCarousel(currentSlide);
+            resetInterval();
+        }
+
+        function startInterval() {
+            slideInterval = setInterval(nextSlide, intervalTime);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            startInterval();
+        }
+
+        startInterval();
+    </script>
+
+
+
+    <script>
+        function updateNavigationColors() {
+            const currentHash = window.location.hash || '#home';
+            
+            // --- LOGIKA DESKTOP ---
+            const mainLinks = document.querySelectorAll('.nav-link');
+            const subLinks = document.querySelectorAll('.sub-link');
+            let isSubMenuContentActive = false;
+
+            // Reset semua link dropdown item terlebih dahulu
+            subLinks.forEach(sub => {
+                if(sub.getAttribute('href') === currentHash) {
+                    sub.classList.remove('text-emerald-100');
+                    sub.classList.add('text-amber-400');
+                    isSubMenuContentActive = true; 
+                } else {
+                    sub.classList.remove('text-amber-400');
+                    sub.classList.add('text-emerald-100');
+                }
+            });
+
+            // Atur warna menu utama desktop
+            mainLinks.forEach(link => {
+                const targetNav = link.getAttribute('data-nav');
+                const hrefTarget = link.getAttribute('href');
+
+                if (targetNav === 'tentang-kami' && isSubMenuContentActive) {
+                    // Jika yang aktif adalah bagian dari isi "Tentang Kami"
+                    link.classList.remove('text-emerald-100/90');
+                    link.classList.add('text-amber-400');
+                } else if (hrefTarget === currentHash && targetNav !== 'tentang-kami') {
+                    // Jika menu utama biasa yang aktif
+                    link.classList.remove('text-emerald-100/90');
+                    link.classList.add('text-amber-400');
+                } else {
+                    // Kembalikan ke putih semula
+                    link.classList.remove('text-amber-400');
+                    link.classList.add('text-emerald-100/90');
+                }
+            });
+
+            // --- LOGIKA MOBILE ---
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            mobileLinks.forEach(mLink => {
+                if (mLink.getAttribute('href') === currentHash) {
+                    mLink.classList.remove('text-emerald-100', 'text-emerald-200');
+                    mLink.classList.add('text-amber-400');
+                } else {
+                    mLink.classList.remove('text-amber-400');
+                    if (mLink.classList.contains('px-6')) {
+                        mLink.classList.add('text-emerald-200'); // Sub-menu pudar
+                    } else {
+                        mLink.classList.add('text-emerald-100'); // Menu utama putih
+                    }
+                }
+            });
+        }
+
+        // Jalankan fungsi saat link diklik maupun saat halaman pertama kali dimuat
+        window.addEventListener('hashchange', updateNavigationColors);
+        window.addEventListener('DOMContentLoaded', updateNavigationColors);
+    </script>
+
+
+</body>
+</html>
