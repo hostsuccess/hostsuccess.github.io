@@ -300,15 +300,25 @@ html {
 
 
 @media (max-width: 767px) {
-    .carousel-caption {
-        padding-bottom: 10px; /* Kurangi padding agar teks tidak terlalu bawah */
-        padding-top: 10px;
+    .carousel-item { 
+        height: 300px; 
     }
-    .carousel-caption h3 {
-        font-size: 1.5rem; /* Perkecil ukuran font di HP */
+    .carousel-item img { 
+        height: 300px; 
     }
-    .carousel-caption p {
-        font-size: 0.9rem;
+    
+    /* Target h1 di dalam carousel agar responsif */
+    .carousel-caption h1 { 
+        font-size: 1.5rem !important; /* Ukuran font di HP */
+        line-height: 1.3;
+    }
+    .carousel-caption p { 
+        font-size: 0.9rem !important; 
+        margin-bottom: 15px !important;
+    }
+    .carousel-caption .btn { 
+        padding: 8px 20px; 
+        font-size: 0.8rem;
     }
 }
 
@@ -371,7 +381,7 @@ html {
                 <div class="carousel-overlay"></div>
                 <img src="img/bg1.png" class="d-block w-100" alt="Slide 1">
                 <div class="carousel-caption d-block d-md-block text-start">
-                    <h1 class="display-3 fw-bold text-dark">Kenyamanan Si Kecil <br>Adalah Prioritas Kami</h1>
+                    <h1 class="h1 fw-bold text-dark">Kenyamanan Si Kecil <br>Adalah Prioritas Kami</h1>
                     <p class="fs-5 mb-4 text-dark">Temukan koleksi pakaian bayi organik terbaik.</p>
                     <a href="#koleksi" class="btn btn-elegant btn-lg text-primary">Lihat Produk</a>
                 </div>
